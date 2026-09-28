@@ -24,15 +24,19 @@ public class PresupuestoService
     public Totales CalcularTotales(Presupuesto presupuesto)
     {
         decimal subtotal = 0m;
+        decimal iva = 0m;
+
         foreach (var item in presupuesto.Items)
         {
             var subtotalLinea = item.Cantidad * item.PrecioUnitario * (1 - item.DescuentoPct / 100m);
+            // arreglar regla de negocio --> El IVA se calcula por línea según su alícuota
+            // el iva se calcula con un valor fijo. FIX --> usar alicuota por producto luego del descuento
+            var ivaCalculado = subtotalLinea * (item.AlicuotaIva / 100m);
             subtotal += subtotalLinea;
+            iva += ivaCalculado;
         }
-
-        var iva = subtotal * 0.21m;
+        
         var total = subtotal + iva;
-
         return new Totales(subtotal, iva, total);
     }
 
