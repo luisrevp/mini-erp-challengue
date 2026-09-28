@@ -19,8 +19,11 @@ public class FacturacionService
 
     public async Task<Factura> FacturarAsync(int presupuestoId)
     {
+        // 1 sola query para obtener los articulos asociados
+
         var presupuesto = await _db.Presupuestos
             .Include(p => p.Items)
+                .ThenInclude(i => i.Articulo)
             .FirstOrDefaultAsync(p => p.Id == presupuestoId)
             ?? throw new InvalidOperationException("El presupuesto no existe.");
 
@@ -35,16 +38,19 @@ public class FacturacionService
 
         foreach (var item in presupuesto.Items)
         {
-            var articulo = await _db.Articulos.FirstAsync(a => a.Id == item.ArticuloId);
+            var articulo = item.Articulo;
 
-            int nuevoValorStock = articulo.StockActual - item.Cantidad;
-
-            if (nuevoValorStock < 0)
+            if (articulo is not null)
             {
-                throw new InvalidOperationException($"El stock para el articulo {articulo.Descripcion} no puede ser negativo!");
-            }
+                int nuevoValorStock = articulo.StockActual - item.Cantidad;
 
-            articulo.StockActual = nuevoValorStock;
+                if (nuevoValorStock < 0)
+                {
+                    throw new InvalidOperationException($"El stock para el articulo {articulo.Descripcion} no puede ser negativo!");
+                }
+
+                articulo.StockActual = nuevoValorStock;
+            }
         }
 
         var totales = _presupuestos.CalcularTotales(presupuesto);
