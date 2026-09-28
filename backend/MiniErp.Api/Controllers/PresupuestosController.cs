@@ -16,7 +16,7 @@ public class PresupuestosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<PresupuestoDto>>> Listar()
     {
-        var lista = await _service.ListarAsync();
+        var lista = await _service.ListarAsync(false);
         return Ok(lista.Select(MapToDto).ToList());
     }
 

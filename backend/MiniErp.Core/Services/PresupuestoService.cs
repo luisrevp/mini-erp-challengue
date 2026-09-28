@@ -76,15 +76,26 @@ public class PresupuestoService
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<List<Presupuesto>> ListarAsync()
+    public async Task<List<Presupuesto>> ListarAsync(bool excluirBorradores = true)
     {
-        return await _db.Presupuestos
+        IQueryable<Presupuesto> query = _db.Presupuestos
+            .AsNoTracking()
             .Include(p => p.Cliente)
             .Include(p => p.Items)
-                .ThenInclude(i => i.Articulo)
-            .Where(p => p.Estado != EstadoPresupuesto.Borrador)
+                .ThenInclude(i => i.Articulo);
+
+        if (excluirBorradores)
+        {
+            // ejecucion diferida (corre dentro de SQL)
+            // Filtramos en la base de datos para excluir los presupuestos en estado Borrador
+            query = query.Where(p => p.Estado != EstadoPresupuesto.Borrador);
+        }
+
+        var presupuestos = await query
             .OrderByDescending(p => p.Numero)
             .ToListAsync();
+
+        return presupuestos;
     }
 
     public async Task EliminarAsync(int id)
