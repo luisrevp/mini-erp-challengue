@@ -23,6 +23,7 @@ public class FacturasController : ControllerBase
     public async Task<ActionResult<List<FacturaDto>>> Listar()
     {
         var lista = await _db.Facturas
+            .AsNoTracking()
             .OrderByDescending(f => f.Numero)
             .Select(f => new FacturaDto(f.Id, f.Numero, f.Fecha, f.PresupuestoId, f.Subtotal, f.Iva, f.Total))
             .ToListAsync();

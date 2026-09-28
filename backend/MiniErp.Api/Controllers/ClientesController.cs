@@ -17,6 +17,7 @@ public class ClientesController : ControllerBase
     public async Task<ActionResult<List<ClienteDto>>> Listar()
     {
         var clientes = await _db.Clientes
+            .AsNoTracking()
             .OrderBy(c => c.RazonSocial)
             .ToListAsync();
 

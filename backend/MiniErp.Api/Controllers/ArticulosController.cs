@@ -17,7 +17,9 @@ public class ArticulosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<ArticuloDto>>> Buscar([FromQuery] string? busqueda)
     {
-        var query = _db.Articulos.AsQueryable();
+        var query = _db.Articulos
+            .AsNoTracking()
+            .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(busqueda))
         {
