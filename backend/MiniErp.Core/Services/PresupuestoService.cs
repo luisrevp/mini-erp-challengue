@@ -29,13 +29,11 @@ public class PresupuestoService
         foreach (var item in presupuesto.Items)
         {
             var subtotalLinea = item.Cantidad * item.PrecioUnitario * (1 - item.DescuentoPct / 100m);
-            // arreglar regla de negocio --> El IVA se calcula por línea según su alícuota
-            // el iva se calcula con un valor fijo. FIX --> usar alicuota por producto luego del descuento
-            var ivaCalculado = subtotalLinea * (item.AlicuotaIva / 100m);
+            var ivaLinea = Math.Round(subtotalLinea * (item.AlicuotaIva / 100m), 2, MidpointRounding.AwayFromZero);
             subtotal += subtotalLinea;
-            iva += ivaCalculado;
+            iva += ivaLinea;
         }
-        
+
         var total = subtotal + iva;
         return new Totales(subtotal, iva, total);
     }
