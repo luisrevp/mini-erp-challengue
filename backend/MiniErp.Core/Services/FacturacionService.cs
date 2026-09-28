@@ -31,7 +31,15 @@ public class FacturacionService
         foreach (var item in presupuesto.Items)
         {
             var articulo = await _db.Articulos.FirstAsync(a => a.Id == item.ArticuloId);
-            articulo.StockActual -= item.Cantidad;
+
+            int nuevoValorStock = articulo.StockActual - item.Cantidad;
+
+            if (nuevoValorStock < 0)
+            {
+                throw new InvalidOperationException($"El stock para el articulo {articulo.Descripcion} no puede ser negativo!");
+            }
+
+            articulo.StockActual = nuevoValorStock;
         }
 
         var totales = _presupuestos.CalcularTotales(presupuesto);
