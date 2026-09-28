@@ -43,12 +43,6 @@ public class FacturacionService
             if (articulo is not null)
             {
                 int nuevoValorStock = articulo.StockActual - item.Cantidad;
-
-                if (nuevoValorStock < 0)
-                {
-                    throw new InvalidOperationException($"El stock para el articulo {articulo.Descripcion} no puede ser negativo!");
-                }
-
                 articulo.StockActual = nuevoValorStock;
             }
         }
