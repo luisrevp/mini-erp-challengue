@@ -24,6 +24,11 @@ public class FacturacionService
             .FirstOrDefaultAsync(p => p.Id == presupuestoId)
             ?? throw new InvalidOperationException("El presupuesto no existe.");
 
+        if (presupuesto.Estado.Equals(EstadoPresupuesto.Facturado))
+        {
+            throw new InvalidOperationException("El presupuesto ya esta facturado!");
+        }
+
         var vencimiento = presupuesto.Fecha.AddDays(presupuesto.ValidezDias);
         if (DateTime.UtcNow > vencimiento)
             throw new InvalidOperationException("El presupuesto esta vencido y no se puede facturar.");
