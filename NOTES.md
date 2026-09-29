@@ -58,4 +58,11 @@
 - Validación de vencido y de cliente inexistente más clara en create.
 - Autenticación, autorización y auditoría de facturación. Se sumaría un sistema de usuarios
 - Backend más sólido. Usaría diseño orientado al dominio para tener modelos que protejan sus propias reglas de negocio con invariantes
+- Paginación: tanto del lado del servidor como del cliente, para delimitar la cantidad de elementos por grilla
+- Generación de reportes: Incluiría un feature que permita exportar cualquier tipo de consulta (vistas de grilla) o transacción finalizada a word, PDF, excel, csv, etc.
 - Stretch: duplicar con precios refrescados y reporte de artículos facturados.
+
+## Cómo levantar el proyecto
+
+- En el proyecto Backend --> asegurarse de que el proyecto **MiniErp.Api** sea el designado para start up project, y luego correr la aplicación (F5)
+- En el proyecto Frontend --> ubicarse en la raíz de la carpeta Frontend, hacer un **npm install**, seguido de levantar la aplicación con **npm run dev** y finalmente entrar a la URL local (**http://localhost:5173/**)
