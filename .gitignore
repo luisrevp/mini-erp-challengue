@@ -9,9 +9,18 @@ obj/
 *.db-shm
 *.db-wal
 
-# Node
+# Node / frontend (Vite)
 node_modules/
 dist/
+dist-ssr/
+.vite/
+*.tsbuildinfo
+coverage/
+*.log
+npm-debug.log*
+.env
+.env.*
+!.env.example
 
 # IDE
 .vs/

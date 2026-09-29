@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+
+# Build de Vite / TypeScript
+dist/
+dist-ssr/
+*.local
+*.tsbuildinfo
+
+# Cache de Vite (por si queda fuera de node_modules)
+.vite/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Tests / coverage
+coverage/
+playwright-report/
+test-results/
+
+# OS
+.DS_Store
+Thumbs.db
