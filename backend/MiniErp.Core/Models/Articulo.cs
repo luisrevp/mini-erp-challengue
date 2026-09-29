@@ -17,7 +17,7 @@ public class Articulo
         {
             if (value < 0)
             {
-                throw new InvalidOperationException($"El stock para el articulo {Descripcion} no puede ser negativo!");
+                throw new InvalidOperationException($"No hay stock suficiente para el articulo \"{Descripcion}\"!");
             }
 
             stockActual = value;
