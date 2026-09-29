@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Container, Snackbar, Alert, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Container, Divider, Snackbar, Alert, Toolbar, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useArticuloStore } from "../stores/articuloStore";
@@ -21,15 +21,37 @@ export default function Layout() {
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar sx={{ gap: 1 }}>
+        <Toolbar sx={{ gap: 2 }}>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Mini ERP
           </Typography>
-          <Button color="inherit" component={NavLink} to="/" end sx={{ "&.active": { textDecoration: "underline" } }}>
+          <Button
+            color="inherit" component={NavLink} to="/articulos" end
+            sx={{
+              fontSize: '1rem',
+              textTransform: 'none'
+            }}>
+            Artículos
+          </Button>
+          <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255, 255, 255, 0.57)', my: 1, borderRightWidth: 2 }} />
+          <Button
+            color="inherit" component={NavLink} to="/" end
+            sx={{
+              fontSize: '1rem',
+              textTransform: 'none'
+            }}>
             Presupuestos
           </Button>
-          <Button color="inherit" component={NavLink} to="/nuevo" sx={{ "&.active": { textDecoration: "underline" } }}>
-            Nuevo
+          <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255, 255, 255, 0.57)', my: 1, borderRightWidth: 2 }} />
+          <Button
+            color="inherit" component={NavLink} to="/nuevo"
+            sx={{
+              fontSize: '1rem',
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              textTransform: 'none'
+            }}>
+            Crear Nuevo
           </Button>
         </Toolbar>
       </AppBar>
